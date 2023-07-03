@@ -1,6 +1,4 @@
-import { TUsers } from "./types";
-
-import { TProducts } from "./types";
+import { TUsers, TProducts } from "./types";
 
 export const user: TUsers[] = [
     {
@@ -21,7 +19,7 @@ export const user: TUsers[] = [
 export const product: TProducts[] = [
     {
         id: "prod001",
-        name: "Mouse gamer", 
+        name: "Mouse gamer",
         price: 250,
         description: "Melhor mouse do mercado!",
         imageUrl: "https://picsum.photos/seed/Mouse%20gamer/400"
@@ -33,3 +31,37 @@ export const product: TProducts[] = [
         imageUrl: "https://picsum.photos/seed/Monitor/400"
     }
 ]
+
+//USERS
+export function createUser(id: string, name: string, email: string, password: string): string {
+    const createdAt = new Date().toISOString();
+    const newUser: TUsers = { id, name, email, password, createdAt };
+    user.push(newUser);
+    return "Cadastro realizado com sucesso";
+}
+
+export function getAllUsers(): TUsers[] {
+    return user;
+}
+
+
+//PRODUCTS
+export function createProduct(id: string, name: string, price: number, description: string, imageUrl: string) {
+    const newProduct: TProducts = {id, name, price, description, imageUrl};
+    product.push(newProduct);
+    return "Produto criado com sucesso";
+}
+
+export function getAllProduct(): TProducts[] {
+    return product;
+}
+
+
+//SEARCH PRODUCTS
+export function searchProductsByName(name: string): TProducts | null {
+    const nameLowerCase = name.toLowerCase();
+    const foundProduct = product.find((produto) =>
+        produto.name.toLowerCase() === nameLowerCase
+    );
+    return foundProduct || null;
+  }
