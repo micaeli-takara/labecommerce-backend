@@ -58,10 +58,10 @@ export function getAllProduct(): TProducts[] {
 
 
 //SEARCH PRODUCTS
-export function searchProductsByName(name: string): TProducts | null {
+export function searchProductsByName(name: string): TProducts[] {
     const nameLowerCase = name.toLowerCase();
-    const foundProduct = product.find((produto) =>
-        produto.name.toLowerCase() === nameLowerCase
+    const foundProduct = product.filter((produto) =>
+        produto.name.toLowerCase().includes(nameLowerCase)
     );
-    return foundProduct || null;
+    return foundProduct;
   }
