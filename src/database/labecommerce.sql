@@ -8,8 +8,6 @@ CREATE TABLE users (
     created_at TEXT NOT NULL
 );
 
-SELECT * FROM users;
-
 PRAGMA table_info('users');
 
 INSERT INTO users (id, name, email, password, created_at) 
@@ -18,8 +16,41 @@ VALUES
     ('c002', 'Joaquina', 'joaquina@email.com', 'joaninha123', DATETIME('now')),
     ('c003', 'Joselito', 'joselito@email.com', 'jose123', DATETIME('now'));
 
+INSERT INTO users (id, name, email, password, created_at)
+VALUES
+('c004', 'Micaeli', 'micaeli@email.com', 'mica123', DATETIME('now'));
+
+DELETE FROM users
+WHERE id = 'c004';
+
+SELECT * FROM users;
 
 DROP TABLE users;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -31,7 +62,8 @@ CREATE TABLE products (
     image_url TEXT NOT NULL
 );
 
-SELECT * FROM products;
+SELECT * FROM products
+WHERE name LIKE '%Gamer%';
 
 PRAGMA table_info('products');
 
@@ -46,5 +78,23 @@ VALUES
     ('prod004', 'Headset Gamer', 249.99, 'Headset pra escutar', 'https://www.kabum.com.br/produto/227818/headset-gamer-redragon-zeus-x-chroma-mk-ii-rgb-surround-7-1-usb-drivers-53mm-preto-vermelho-h510-rgb'),
 
     ('prod005', 'Cadeira Gamer', 999.99, 'Cadeira pra sentar', 'https://www.kabum.com.br/produto/134179/cadeira-gamer-husky-gaming-tempest-700-branco-com-almofadas-descanso-para-pernas-retratil-reclinavel-hgma077');
+
+
+INSERT INTO products (id, name, price, description, image_url)
+VALUES
+('prod006', 'Celular', 4895.55, 'Celular pra entrar no zapzap', 'https://www.kabum...');
+
+DELETE FROM products
+WHERE id = 'prod006';
+
+UPDATE products
+SET 
+name = 'Controle Remoto',
+price = 100.00,
+description = 'Controle pra abrir',
+image_url = 'https://www.kabum...'
+WHERE id = 'prod005';
+
+SELECT * FROM products;
 
 DROP TABLE products;
