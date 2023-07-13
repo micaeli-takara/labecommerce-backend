@@ -27,33 +27,6 @@ SELECT * FROM users;
 
 DROP TABLE users;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 CREATE TABLE products (
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
     name TEXT NOT NULL,
@@ -98,3 +71,37 @@ WHERE id = 'prod005';
 SELECT * FROM products;
 
 DROP TABLE products;
+
+
+
+CREATE TABLE purchases (
+    id TEXT PRIMARY KEY UNIQUE NOT NULL,
+    buyer TEXT NOT NULL,
+    total_price REAL NOT NULL,
+    created_at TEXT NOT NULL,
+    FOREIGN KEY (buyer) REFERENCES users(id)
+);
+
+INSERT INTO purchases(id, buyer, total_price, created_at)
+VALUES 
+('purc001', 'c001', 700.59, DATETIME('now')),
+
+('purc002', 'c002', 489.65, DATETIME('now'));
+
+
+UPDATE purchases
+SET total_price = 123.12
+WHERE purchases.id = 'purc001';
+
+SELECT
+ purchases.id AS idCompra,
+ users.id AS idComprador,
+ users.name,
+ users.email,
+ purchases.total_price,
+ purchases.created_at
+FROM purchases
+INNER JOIN users
+ON purchases.buyer = users.id;
+
+DROP TABLE purchases;
