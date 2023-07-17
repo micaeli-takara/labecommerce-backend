@@ -27,6 +27,9 @@ SELECT * FROM users;
 
 DROP TABLE users;
 
+
+
+
 CREATE TABLE products (
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
     name TEXT NOT NULL,
@@ -50,12 +53,10 @@ VALUES
 
     ('prod004', 'Headset Gamer', 249.99, 'Headset pra escutar', 'https://www.kabum.com.br/produto/227818/headset-gamer-redragon-zeus-x-chroma-mk-ii-rgb-surround-7-1-usb-drivers-53mm-preto-vermelho-h510-rgb'),
 
-    ('prod005', 'Cadeira Gamer', 999.99, 'Cadeira pra sentar', 'https://www.kabum.com.br/produto/134179/cadeira-gamer-husky-gaming-tempest-700-branco-com-almofadas-descanso-para-pernas-retratil-reclinavel-hgma077');
+    ('prod005', 'Cadeira Gamer', 999.99, 'Cadeira pra sentar', 'https://www.kabum.com.br/produto/134179/cadeira-gamer-husky-gaming-tempest-700-branco-com-almofadas-descanso-para-pernas-retratil-reclinavel-hgma077'),
 
+    ('prod006', 'Celular', 4895.55, 'Celular pra entrar no zapzap', 'https://www.kabum...');
 
-INSERT INTO products (id, name, price, description, image_url)
-VALUES
-('prod006', 'Celular', 4895.55, 'Celular pra entrar no zapzap', 'https://www.kabum...');
 
 DELETE FROM products
 WHERE id = 'prod006';
@@ -80,13 +81,15 @@ CREATE TABLE purchases (
     total_price REAL NOT NULL,
     created_at TEXT NOT NULL,
     FOREIGN KEY (buyer) REFERENCES users(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
 );
 
 INSERT INTO purchases(id, buyer, total_price, created_at)
 VALUES 
-('purc001', 'c001', 700.59, DATETIME('now')),
+('pur001', 'c001', 700.59, DATETIME('now')),
 
-('purc002', 'c002', 489.65, DATETIME('now'));
+('pur002', 'c002', 489.65, DATETIME('now'));
 
 
 UPDATE purchases
@@ -105,3 +108,42 @@ INNER JOIN users
 ON purchases.buyer = users.id;
 
 DROP TABLE purchases;
+
+
+CREATE TABLE purchases_products(
+    products_id TEXT NOT NULL,
+    purchases_id TEXT NOT NULL,
+    quantity INTEGER NOT NULL,
+    FOREIGN KEY (products_id) REFERENCES products(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+    FOREIGN KEY (purchases_id) REFERENCES purchases(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+);
+
+INSERT INTO purchases_products(purchases_id, products_id, quantity)
+VALUES 
+('pur001', 'prod001', 5),
+('pur002', 'prod003', 1),
+('pur001', 'prod004', 9);
+
+SELECT 
+users.name AS userName,
+products.id AS productsId,
+purchases.id AS purchasesId,
+products.name AS productsName,
+quantity,
+purchases.total_price AS TotalPrice
+
+FROM purchases_products
+INNER JOIN purchases
+ON purchases_products.purchases_id = purchases.id
+
+INNER JOIN products
+ON purchases_products.products_id = products.id
+
+INNER JOIN users
+ON purchases.buyer = users.id;
+
+DROP TABLE purchases_products;
