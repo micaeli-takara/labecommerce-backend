@@ -1,3 +1,4 @@
+import { db } from "./database/knex";
 import { TUsers, TProducts } from "./types";
 
 export const user: TUsers[] = [
@@ -32,13 +33,7 @@ export const product: TProducts[] = [
     }
 ]
 
-//USERS
-export function createUser(id: string, name: string, email: string, password: string): string {
-    const createdAt = new Date().toISOString();
-    const newUser: TUsers = { id, name, email, password, createdAt };
-    user.push(newUser);
-    return "Cadastro realizado com sucesso";
-}
+
 
 export function getAllUsers(): TUsers[] {
     return user;
@@ -47,7 +42,7 @@ export function getAllUsers(): TUsers[] {
 
 //PRODUCTS
 export function createProduct(id: string, name: string, price: number, description: string, imageUrl: string) {
-    const newProduct: TProducts = {id, name, price, description, imageUrl};
+    const newProduct: TProducts = { id, name, price, description, imageUrl };
     product.push(newProduct);
     return "Produto criado com sucesso";
 }
@@ -57,11 +52,3 @@ export function getAllProduct(): TProducts[] {
 }
 
 
-//SEARCH PRODUCTS
-export function searchProductsByName(name: string): TProducts[] {
-    const nameLowerCase = name.toLowerCase();
-    const foundProduct = product.filter((produto) =>
-        produto.name.toLowerCase().includes(nameLowerCase)
-    );
-    return foundProduct;
-  }

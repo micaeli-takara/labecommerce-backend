@@ -12,9 +12,9 @@ PRAGMA table_info('users');
 
 INSERT INTO users (id, name, email, password, created_at) 
 VALUES 
-    ('c001', 'Astrodev', 'astrodev@email.com', 'abc123', DATETIME('now')),
-    ('c002', 'Joaquina', 'joaquina@email.com', 'joaninha123', DATETIME('now')),
-    ('c003', 'Joselito', 'joselito@email.com', 'jose123', DATETIME('now'));
+    ('u001', 'Astrodev', 'astrodev@email.com', 'abc123', DATETIME('now')),
+    ('u002', 'Joaquina', 'joaquina@email.com', 'joaninha123', DATETIME('now')),
+    ('u003', 'Joselito', 'joselito@email.com', 'jose123', DATETIME('now'));
 
 INSERT INTO users (id, name, email, password, created_at)
 VALUES

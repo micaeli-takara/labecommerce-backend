@@ -54,8 +54,8 @@ function getAllProduct() {
 exports.getAllProduct = getAllProduct;
 function searchProductsByName(name) {
     const nameLowerCase = name.toLowerCase();
-    const foundProduct = exports.product.find((produto) => produto.name.toLowerCase() === nameLowerCase);
-    return foundProduct || null;
+    const foundProduct = exports.product.filter((produto) => produto.name.toLowerCase().includes(nameLowerCase));
+    return foundProduct;
 }
 exports.searchProductsByName = searchProductsByName;
 //# sourceMappingURL=database.js.map
